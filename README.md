@@ -4,6 +4,7 @@ UNJobReporter is a Python tool designed to streamline the process of gathering a
 
 You may run this tool on a schedule to receive regular reports about UN job postings.
 
+Here is how such an email looks like:
 ![Sample Email Screenshot](readme_image/sample_email.png)
 
 ## Installation
