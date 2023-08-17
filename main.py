@@ -51,11 +51,10 @@ if __name__ == '__main__':
 
     # 4) answer questions about jobs
     summaries = config['summaries']
-    question_function, filter_ids = get_question_function(summaries, ["Can German nationals apply for this job?", "Is fluency in English and no other language sufficient?"])
+    question_function = get_question_function(summaries)
 
     for job in tqdm(jobs):
         question_and_answers = answer_job_questions(job, question_function)
-        # write answers to filter questions separately to not mess up the rest of the job data
         job.questions_and_answers = question_and_answers
 
     # 5) send job report via email

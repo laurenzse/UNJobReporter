@@ -52,25 +52,18 @@ def generate_summaries(prompts: list) -> dict:
     return summaries
 
 
-def get_question_function(summaries: dict, filter_questions: list[str]):
+def get_question_function(summaries: dict):
     # generate properties out of each question and summary
     properties = {}
     for question, summary in summaries.items():
         properties[summary] = {"type": "string", "description": question}
-
-    filter_ids = []
-    for index, question in enumerate(filter_questions):
-        # filter_id = f"filter_{index}"
-        filter_id = question
-        properties[filter_id] = {"type": "boolean", "description": f"This is a hard filter: {question}"}
-        filter_ids.append(filter_id)
 
     required = list(properties.keys())
 
     # generate the function
     summary_function = {
         "name": "answer_job_request",
-        "description": "Sets the answers for questions, requests and filter-queries about a job description.",
+        "description": "Sets the answers for questions and requests about a job description.",
         "parameters": {
             "type": "object",
             "properties": properties,
@@ -78,4 +71,4 @@ def get_question_function(summaries: dict, filter_questions: list[str]):
         },
     }
 
-    return summary_function, filter_ids
+    return summary_function

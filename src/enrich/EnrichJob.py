@@ -16,6 +16,7 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
     num_tokens = len(encoding.encode(string))
     return num_tokens
 
+
 def answer_job_questions(job: UNJob, question_function: dict):
     prompt = f"""
         A job was posted with the following description:
@@ -26,19 +27,15 @@ def answer_job_questions(job: UNJob, question_function: dict):
         
         -----------------------------------------------
 
-        Please summarize and filter out this job using JSON objects. 
+        Please summarize and filter out this job using a JSON data structure. 
         
-        Guidelines for answering questions:
-        Your response should be brief as space is limited and the user needs to be able to quickly scan the answers.
+        Your responses should be brief as space is limited and the user needs to be able to quickly scan the answers.
                 
         If the description uses terminology, use the same terminology in your answer.
         
         Along with your answers, the user will see key facts about the job posts, e.g. the job title, the organization, the location etc.
         Do not repeat such facts in your answers but rather extract and summarize facts out of the job description, which
         the user otherwise might miss.
-        
-        Guidelines for filtering jobs:
-        Only answer "false" if you are sure about your answer, as the user then won't see this job. 
         """
 
     prompt_tokens = num_tokens_from_string(prompt, "gpt-3.5-turbo")
