@@ -1,5 +1,4 @@
 import json
-from dotenv import load_dotenv
 from tqdm import tqdm
 
 from src.enrich.EnrichJob import answer_job_questions
@@ -8,7 +7,6 @@ from src.filter.RawFilter import filter_jobs
 from src.report.SendReport import send_job_email
 from src.scrape.ScrapeUNJobNet import load_new_job_stubs_at_url, load_jobs_from_job_stubs
 
-load_dotenv()
 
 def load_config():
     with open("config.json", 'r') as f:
