@@ -14,7 +14,7 @@ def send_job_email(jobs: list[UNJob], email_recipient: str):
 
     r = resend.Emails.send(
         {
-            "from": "Job Notifications <job-notifications@laurenzseidel.com>",
+            "from": os.environ["SENDER_EMAIL"],
             "to": email_recipient,
             "subject": "UN Job Report",
             "html": job_email_html,
