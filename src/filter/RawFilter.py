@@ -8,11 +8,12 @@ import pycountry_convert as pc
 from src.data.Job import UNJobStub
 
 # create cache-to-file decorator to avoid unnecessary API calls for geocoding
-filecache = FileCache('africa_lookups.dat')
+filecache = FileCache("africa_lookups.dat")
 
 
 def job_is_in_africa(job: UNJobStub) -> bool:
     return city_country_in_africa(job.cities_countries)
+
 
 @filecache
 def city_country_in_africa(cities_countries: str) -> bool:

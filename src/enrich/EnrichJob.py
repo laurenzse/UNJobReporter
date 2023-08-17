@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from src.data.Job import UNJob
 
 load_dotenv()
-openai.api_key = os.environ['OPENAI_API_KEY']
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def num_tokens_from_string(string: str, encoding_name: str) -> int:
@@ -39,7 +39,9 @@ def answer_job_questions(job: UNJob, question_function: dict):
         """
 
     prompt_tokens = num_tokens_from_string(prompt, "gpt-3.5-turbo")
-    function_tokens = num_tokens_from_string(json.dumps(question_function), "gpt-3.5-turbo")
+    function_tokens = num_tokens_from_string(
+        json.dumps(question_function), "gpt-3.5-turbo"
+    )
     answer_tokens = function_tokens * 1.5
 
     if prompt_tokens + function_tokens + answer_tokens > 16384:
@@ -54,7 +56,10 @@ def answer_job_questions(job: UNJob, question_function: dict):
         completion = openai.ChatCompletion.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a helpful job search assistant."},
+                {
+                    "role": "system",
+                    "content": "You are a helpful job search assistant.",
+                },
                 {"role": "user", "content": prompt},
             ],
             functions=[question_function],
@@ -69,4 +74,3 @@ def answer_job_questions(job: UNJob, question_function: dict):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-

@@ -42,7 +42,7 @@ def find_pdf_url(job_code: str) -> str:
                 break
 
         # find embedded pdf element by xpath
-        embedded_element = driver.find_element("xpath", "//*[@id=\"WD2B\"]")
+        embedded_element = driver.find_element("xpath", '//*[@id="WD2B"]')
 
         # get the src attribute
         pdf_url = embedded_element.get_attribute("src")
@@ -73,8 +73,3 @@ def get_iom_job_description(job_code: str) -> str:
     content = extract_text_from_pdf_url(pdf_url)
 
     return content
-
-
-
-
-

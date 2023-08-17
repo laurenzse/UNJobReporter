@@ -31,7 +31,10 @@ def get_prompt_summary(prompt: str) -> str:
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a helpful UI optimization assistant."},
+            {
+                "role": "system",
+                "content": "You are a helpful UI optimization assistant.",
+            },
             {"role": "user", "content": prompt},
         ],
         functions=[summary_function],
