@@ -59,10 +59,10 @@ if __name__ == "__main__":
 
     job_stubs = job_stubs[:1]
 
-    # 3) load full jobs
+    # 4) load full jobs
     jobs = load_jobs_from_job_stubs(job_stubs)
 
-    # 4) answer questions about jobs
+    # 5) answer questions about jobs
     summaries = config["summaries"]
     question_function = get_question_function(summaries)
 
@@ -70,10 +70,10 @@ if __name__ == "__main__":
         question_and_answers = answer_job_questions(job, question_function)
         job.questions_and_answers = question_and_answers
 
-    # 5) send job report via email
+    # 6) send job report via email
     send_job_email(jobs, config["email"])
 
-    # 6) save seen jobs
+    # 7) save seen jobs
     with open(f"seen_jobs_{config['email_id']}.csv", "a") as f:
         for job in jobs:
             f.write(job.un_jobnet_id + "\n")
