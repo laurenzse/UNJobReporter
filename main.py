@@ -74,6 +74,6 @@ if __name__ == "__main__":
     send_job_email(jobs, config["email"])
 
     # 6) save seen jobs
-    with open(config["seen_job_file"], "a") as f:
+    with open(f"seen_jobs_{config['email_id']}.csv", "a") as f:
         for job in jobs:
             f.write(job.un_jobnet_id + "\n")
