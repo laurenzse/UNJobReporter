@@ -36,6 +36,17 @@ if __name__ == "__main__":
     #         break
     #     questions.append(question)
 
+    # ask for continents which should be filtered out
+    print(
+        "Please enter the continent codes (e.g. EU, AF, SA) you want to filter out. Press enter to finish."
+    )
+    continents = []
+    while True:
+        continent = input("Continent: ")
+        if continent == "":
+            break
+        continents.append(continent)
+
     # ask for email address to which the report should be sent
     print("Please enter the email address to which the report should be sent.")
     email = input("Email: ")
@@ -43,24 +54,23 @@ if __name__ == "__main__":
     # generate summaries of quesions
     summaries = generate_summaries(questions)
 
-    # create file named "seen_jobs.csv", if file exists, append number to file name
-    file_name = "seen_jobs.csv"
-    i = 1
-    while os.path.exists(file_name):
-        file_name = f"seen_jobs_{i}.csv"
-        i += 1
-    with open(file_name, "w") as f:
-        f.write("")
+    # generate id out of email address by replacing all non-alphanumeric characters with underscores
+    email_id = "".join([c if c.isalnum() else "_" for c in email])
 
-    # write url and summaries to config file
+    # create seen_jobs file with file name including email id
+    seen_jobs_filename = f"seen_jobs_{email_id}.csv"
+    open(seen_jobs_filename, "w").close()
+
+    # create config file content
     config_file = {
+        "email_id": email_id,
+        "email": email,
         "urls": urls,
         "summaries": summaries,
-        "seen_job_file": file_name,
-        "email": email,
+        "continent_filter": continents,
     }
 
     # write config file
-    with open("config.json", "w") as f:
+    with open(f"{email_id}.json", "w") as f:
         # pretty print json
         json.dump(config_file, f, indent=4)

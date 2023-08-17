@@ -8,25 +8,21 @@ import pycountry_convert as pc
 from src.data.Job import UNJobStub
 
 # create cache-to-file decorator to avoid unnecessary API calls for geocoding
-filecache = FileCache("africa_lookups.dat")
-
-
-def job_is_in_africa(job: UNJobStub) -> bool:
-    return city_country_in_africa(job.cities_countries)
+filecache = FileCache("continent_file_cache.dat")
 
 
 @filecache
-def city_country_in_africa(cities_countries: str) -> bool:
+def get_continent_code_from_cities_countries(cities_countries: str) -> str:
     # check if empty string passed
     if cities_countries == "":
-        return False
+        return ""
 
     locator = Nominatim(user_agent="UNJobReporter")
     geocode = RateLimiter(locator.geocode, min_delay_seconds=1)
     location = geocode(cities_countries, addressdetails=True)
 
     if location is None:
-        return False
+        return ""
 
     # extract country code
     address = location.raw["address"]
@@ -36,17 +32,24 @@ def city_country_in_africa(cities_countries: str) -> bool:
     try:
         continent_code = pc.country_alpha2_to_continent_code(country_code)
     except KeyError:
-        return False
+        return ""
 
-    return continent_code == "AF"
+    return continent_code
 
 
-def filter_jobs(jobs: list[UNJobStub]) -> (list[UNJobStub], list[UNJobStub]):
+def filter_jobs(
+    jobs: list[UNJobStub], config: dict
+) -> (list[UNJobStub], list[UNJobStub]):
+    filter_out_continent_codes = config["continent_filter"]
+
     pass_jobs = []
     deny_jobs = []
 
     for job in jobs:
-        if job_is_in_africa(job):
+        if (
+            get_continent_code_from_cities_countries(job.cities_countries)
+            in filter_out_continent_codes
+        ):
             deny_jobs.append(job)
         else:
             pass_jobs.append(job)

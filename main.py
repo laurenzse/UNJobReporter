@@ -1,9 +1,10 @@
+import argparse
 import json
 from tqdm import tqdm
 
 from src.enrich.EnrichJob import answer_job_questions
 from src.enrich.GenerateOpenAIFunction import get_question_function, generate_summaries
-from src.filter.RawFilter import filter_jobs
+from src.filter.ContinentFilter import filter_jobs
 from src.report.SendReport import send_job_email
 from src.scrape.ScrapeUNJobNet import (
     load_new_job_stubs_at_url,
@@ -11,14 +12,14 @@ from src.scrape.ScrapeUNJobNet import (
 )
 
 
-def load_config():
-    with open("config.json", "r") as f:
-        config = json.load(f)
-        return config
+def load_config(file_name: str) -> dict:
+    with open(file_name, "r") as f:
+        return json.load(f)
 
 
 def load_seen_jobs(config: dict) -> set[str]:
-    with open(config["seen_job_file"], "r") as f:
+    seen_jobs_file_name = f"seen_jobs_{config['email_id']}.csv"
+    with open(seen_jobs_file_name, "r") as f:
         seen_jobs = set(f.read().splitlines())
         return seen_jobs
 
@@ -26,8 +27,15 @@ def load_seen_jobs(config: dict) -> set[str]:
 fetch_pages = 4
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Scrapes new job data from UNJobNet, parses job description and uses GPT to answer applicant questions"
+    )
+    parser.add_argument("config_file", type=str, help="File name of the config file")
+
+    args = parser.parse_args()
+
     # 1) load config and seen jobs
-    config = load_config()
+    config = load_config(args.config_file)
     seen_jobs = load_seen_jobs(config)
 
     # 2) get new jobs
@@ -42,7 +50,7 @@ if __name__ == "__main__":
         job_stubs.extend(new_job_stubs)
 
     # 3) filter jobs
-    job_stubs, denied_stubs = filter_jobs(job_stubs)
+    job_stubs, denied_stubs = filter_jobs(job_stubs, config)
 
     # check if there are new jobs
     if len(job_stubs) == 0:
