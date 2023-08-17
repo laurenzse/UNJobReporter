@@ -74,3 +74,8 @@ if __name__ == "__main__":
     with open(f"{email_id}.json", "w") as f:
         # pretty print json
         json.dump(config_file, f, indent=4)
+
+    # print file name of config file to user and instruct how to use it with main.py
+    print(
+        f"Config file {email_id}.json created. Call main.py with this file as argument to start the crawler."
+    )
