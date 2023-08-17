@@ -1,0 +1,80 @@
+<mjml>
+  <mj-head>
+    <mj-title>Hello world</mj-title>
+    <mj-attributes>
+      <mj-all font-family="Ubuntu, Helvetica, sans-serif" />
+      <mj-text font-weight="300" font-size="13px" color="#616161" line-height="15px" />
+      <mj-table font-weight="300" font-size="13px" color="#616161" line-height="24px" />
+    </mj-attributes>
+    <mj-style>
+      .box-shadow {
+      /* https://smoothshadows.com/#djEsMSw1LDAuMSwxNSwxMCwwLCMwMzA3MTIsI2YzZjRmNiwjZmZmZmZmLDM%3D */
+      box-shadow: 0px 0px 1px rgba(3, 7, 18, 0.02),
+      0px 2px 2px rgba(3, 7, 18, 0.04),
+      0px 4px 5px rgba(3, 7, 18, 0.06),
+      0px 6px 10px rgba(3, 7, 18, 0.08),
+      0px 10px 15px rgba(3, 7, 18, 0.10);
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-wrapper padding="10px">
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Found 12 new jobs, unable to create report for 2 jobs:
+            <p><a href="https://blog.recast.ai/module-faster-shadow/">
+                Health Information Management Officer
+              </a></p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section border-radius="10px" border="0px solid #000000" padding="1px" css-class="box-shadow">
+        <mj-column>
+          <mj-spacer height="10px" />
+          <mj-text font-size="18px" line-height="24px">
+            <b>Health Information Management Officer</b>
+          </mj-text>
+          <mj-table>
+            <tr>
+              <td><b>Location</b></td>
+              <td>Ukraine</td>
+            </tr>
+            <tr>
+              <td><b>Organization</b></td>
+              <td>World Health Organization</td>
+            </tr>
+            <tr>
+              <td><b>Job Type</b></td>
+              <td>Temporary</td>
+            </tr>
+            <tr>
+              <td><b>Deadline</b></td>
+              <td>September 09</td>
+            </tr>
+          </mj-table>
+          <mj-text text-transform="capitalize">
+            <b>Job duties summary</b>
+          </mj-text>
+          <mj-text>
+            The Associate Records and Information Management Officer supports the daily operations for managing records and information in WIPO.
+          </mj-text>
+          <mj-text text-transform="capitalize">
+            <b>Job context summary</b>
+          </mj-text>
+          <mj-text>
+            The position is located in the Records and Archives Section of the Knowledge Management and General Services Division, in the Administration, Finance and Management Sector.
+          </mj-text>
+          <mj-text>
+            <a href="https://blog.recast.ai/module-faster-shadow/">
+              View Job Details
+            </a>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        <mj-spacer />
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>
