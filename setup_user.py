@@ -1,5 +1,4 @@
 import json
-import os
 
 from src.enrich.GenerateOpenAIFunction import generate_summaries
 

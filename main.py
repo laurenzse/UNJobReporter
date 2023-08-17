@@ -3,7 +3,7 @@ import json
 from tqdm import tqdm
 
 from src.enrich.EnrichJob import answer_job_questions
-from src.enrich.GenerateOpenAIFunction import get_question_function, generate_summaries
+from src.enrich.GenerateOpenAIFunction import get_question_function
 from src.filter.ContinentFilter import filter_jobs
 from src.report.SendReport import send_job_email
 from src.scrape.ScrapeUNJobNet import (
